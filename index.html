@@ -256,10 +256,10 @@
   <footer>© 2025 Course Assignment Reminder — Designed by Pratik Raut</footer>
 </div>
 
-<!-- scripts -->
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-  // initialize flatpickr for reliable calendar/time picker
+  
   flatpickr("#dueDate", {
     enableTime: true,
     dateFormat: "Y-m-d H:i",
@@ -268,7 +268,7 @@
     defaultHour: 12
   });
 
-  // ask for notification permissions
+  
   if (Notification && Notification.permission !== "granted") {
     Notification.requestPermission().catch(()=>{});
   }
@@ -303,7 +303,7 @@
     assignments.forEach((a, i) => {
       const tr = document.createElement("tr");
 
-      // desktop labels
+    
       const titleTd = document.createElement("td");
       titleTd.textContent = a.title;
       titleTd.setAttribute("data-label","Title");
@@ -373,7 +373,7 @@
     e.preventDefault();
     const title = document.getElementById("title").value.trim();
     const course = document.getElementById("course").value.trim();
-    const dueDate = document.getElementById("dueDate").value.trim(); // "YYYY-MM-DD HH:MM"
+    const dueDate = document.getElementById("dueDate").value.trim(); 
     const notes = document.getElementById("notes").value.trim();
 
     if (!title || !course || !dueDate){
@@ -381,7 +381,7 @@
       return;
     }
 
-    // store a notified flag to prevent repeated notifications
+  
     addAssignment({ title, course, dueDate, notes, completed: false, notified: false });
 
     // reset form
@@ -389,7 +389,7 @@
     flatpickr("#dueDate").clear();
   });
 
-  // check reminders every 30 seconds, mark notified to avoid duplicate
+ 
   function checkReminders(){
     const now = new Date();
     assignments.forEach((a, idx) => {
@@ -404,7 +404,7 @@
             silent: false
           });
         } else {
-          // fallback: small alert inside page (console-friendly)
+         
           console.log("Reminder:", a.title, a.dueDate);
         }
         assignments[idx].notified = true;
@@ -414,11 +414,12 @@
     });
   }
 
-  // initial render and start interval
+ 
   render();
-  // run immediately to catch any due items right away, then every 30s
+ 
   checkReminders();
   setInterval(checkReminders, 30000);
 </script>
 </body>
 </html>
+
